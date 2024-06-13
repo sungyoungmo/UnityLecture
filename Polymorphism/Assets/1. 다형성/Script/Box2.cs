@@ -17,7 +17,8 @@ public class Box2 : MonoBehaviour, IInteractable
         }
         else
         {
-
+            this.transform.SetParent(null);
+            this.GetComponent<Rigidbody>().AddForce(Vector3.forward * 10.0f,ForceMode.Impulse);
         }
 
         
