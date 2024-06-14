@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Green : Button
+public class Green : ButtonPress
 {
     protected override void setColor()
     {

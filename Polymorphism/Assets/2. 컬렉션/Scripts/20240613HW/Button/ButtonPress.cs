@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class Button : MonoBehaviour
+public class ButtonPress : MonoBehaviour
 {
     public GameObject Sphere;
 
-    protected Queue<Color> colr = new Queue<Color>();
-    protected Queue<Vector3> vec3 = new Queue<Vector3>();
+    protected static Queue<Color> colr = new Queue<Color>();
+    protected static Queue<Vector3> vec3 = new Queue<Vector3>();
 
     private void Awake()
     {
@@ -42,18 +41,18 @@ public class Button : MonoBehaviour
     {
         while (true)
         {
+            Debug.Log(colr.Count);
+            Debug.Log(vec3.Count);
 
+            yield return new WaitForSeconds(1.0f);
+            if (colr.Count > 0 && vec3.Count > 0)
+            {
+                Sphere.transform.position = vec3.Dequeue();
+                Sphere.GetComponent<Renderer>().material.color = colr.Dequeue();
+            }
 
-            //if (colr.TryPeek() && colr.Contains)
-            //{
-            //    Sphere.transform.position = vec3.Dequeue();
-            //    Sphere.GetComponent<Renderer>().material.color = colr.Dequeue();
-
-            //    yield return new WaitForSeconds(1.0f);
-            //}
+            
         }
 
     }
-
-
 }
