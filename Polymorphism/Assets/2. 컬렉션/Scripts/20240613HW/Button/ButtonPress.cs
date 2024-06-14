@@ -7,8 +7,8 @@ public class ButtonPress : MonoBehaviour
 {
     public GameObject Sphere;
 
-    protected static Queue<Color> colr = new Queue<Color>();
-    protected static Queue<Vector3> vec3 = new Queue<Vector3>();
+    static Queue<Color> colr = new Queue<Color>();
+    static Queue<Vector3> vec3 = new Queue<Vector3>();
 
     private void Awake()
     {
@@ -41,17 +41,21 @@ public class ButtonPress : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log(colr.Count);
-            Debug.Log(vec3.Count);
-
-            yield return new WaitForSeconds(1.0f);
             if (colr.Count > 0 && vec3.Count > 0)
             {
-                Sphere.transform.position = vec3.Dequeue();
-                Sphere.GetComponent<Renderer>().material.color = colr.Dequeue();
+                Vector3 v3 = vec3.Dequeue();
+                Color cl = colr.Dequeue();
+
+                Debug.Log(v3);
+                Debug.Log(cl);
+
+                Sphere.transform.position = v3;
+                Sphere.GetComponent<Renderer>().material.color = cl;
             }
 
-            
+            yield return new WaitForSeconds(1.0f);
+
+
         }
 
     }
