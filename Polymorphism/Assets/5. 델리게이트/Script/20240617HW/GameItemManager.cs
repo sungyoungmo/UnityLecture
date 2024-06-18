@@ -8,14 +8,14 @@ public class GameItemManager : MonoBehaviour
 {
     public static GameItemManager instance;
 
-    public List<GameObject> ItemList = new List<GameObject>();
+    public List<GameObject> ItemList;
     Action<GameObject> someAction;
     
+
 
     private void Awake()
     {
         instance = this;
-        //someAction = (name) => { ItemList.Add(GameObject.Find(name)); };
-        someAction = (gameO) => { ItemList.Add(gameO); };
+       
     }
 }
