@@ -9,7 +9,6 @@ public class CurrencyList : MonoBehaviour
     public UICurrencyElement CurrencyElementPrefab;    // element UI 요소를 프리팹으로 참조하여 생성
 
     
-
     public void Initialize()
     {
         foreach (CurrencyData data in DataManager.instance.currencyDataList)

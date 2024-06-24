@@ -1,12 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+public class ItemDataHW
+{
+    private int[] ItemsArray = new int[Enum.GetValues(typeof(ItemDataType)).Length];
+
+    public int this[ItemDataType type]
+    {
+        get { return ItemsArray[(int)type]; }
+        set { ItemsArray[(int)type] = value; }
+    }
+
+}
+
 
 public class PlayerItemManager : MonoBehaviour
 {
+    public List<ItemDataScriptableObject> itemDataList;
+    public ItemListHW itemListHW;
+
+    public static PlayerItemManager instance { get; private set; }
+    public ItemDataHW itemDataHW = new ItemDataHW();
+
+
     /*
     
-
     플레이어의 대한 정보가 아닌 이미 등록된
 
     플레이어는 아이템이라는 것을 가지고 있어야 함
@@ -17,7 +37,6 @@ public class PlayerItemManager : MonoBehaviour
     보유하고 있는 아이템은 인벤토리에 출력
     (ItemList/content/items[i] 안에 새로운 오브젝트를 생성한 후 거기에 <Image>부여 한 다음
     정보에 있는 스프라이트를 등록)
-
 
 
     그럼 캐릭터는 무얼 가지고 있어야 하냐
@@ -37,4 +56,13 @@ public class PlayerItemManager : MonoBehaviour
 
 
     */
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    private void Start()
+    {
+        itemListHW.InitializeItem();
+    }
 }

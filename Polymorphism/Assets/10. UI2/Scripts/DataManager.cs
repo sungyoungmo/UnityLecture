@@ -51,8 +51,6 @@ public class DataManager : MonoBehaviour
     {
         CurrencyType type = (CurrencyType)param;
 
-
-
         playerData[type] +=5;
 
         onCurrencyAmountChange?.Invoke(type, playerData[type]);
