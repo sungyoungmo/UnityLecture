@@ -8,13 +8,14 @@ public class SkillSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     IPointerEnterHandler, IPointerExitHandler
 {
     public Image iconImage;
+    public Image cooltimeImage;
 
     internal Skill skill = null;
 
 
     private void Start()
     {
-        
+        Skill = skill;
     }
 
     public virtual Skill Skill 
@@ -80,20 +81,27 @@ public class SkillSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
             return;
         }
 
+
+
         if ((SkillManager.instance.focusedSlot != this) && (SkillManager.instance.focusedSlot != null))
         {
+            StartCoroutine(cooltime(SkillManager.instance.selectedSlot.skill.cooltime));
+
             SkillSlot targetSlot = SkillManager.instance.focusedSlot;
 
-            if (targetSlot.TrySwap(skill))
+            Image targetImage = targetSlot.GetComponent<Image>();
+
+            if (targetImage != null)
             {
-                Skill tempItem = targetSlot.Skill;
-
-                targetSlot.Skill = skill;
-
-                this.Skill = tempItem;
+                targetImage.sprite = iconImage.sprite;
+                targetImage.color = iconImage.color;
+                targetImage.type = iconImage.type;
+                targetImage.preserveAspect = iconImage.preserveAspect;
             }
         }
         SkillManager.instance.selectedSlot = null;
+
+        
 
         iconImage.rectTransform.SetParent(transform);
 
@@ -108,5 +116,22 @@ public class SkillSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     public void OnPointerExit(PointerEventData data)
     {
         SkillManager.instance.focusedSlot = this;
+    }
+
+    IEnumerator cooltime(float cooltime)
+    {
+        cooltimeImage.enabled = true;
+
+        cooltimeImage.fillAmount = 1;
+
+        while (cooltimeImage.fillAmount > 0)
+        {
+            cooltimeImage.fillAmount -= Time.deltaTime / cooltime;
+            yield return null;
+        }
+
+        cooltimeImage.fillAmount = 0;
+
+        cooltimeImage.enabled = false;
     }
 }

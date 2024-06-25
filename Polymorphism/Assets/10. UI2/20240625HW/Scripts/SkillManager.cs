@@ -28,7 +28,7 @@ public class SkillManager : MonoBehaviour
 
         for (int i = 0; i < tempSkills.Count; i++)
         {
-            skillContent.GetChild(i).GetComponent<SkillSlot>();
+            skillContent.GetChild(i).GetComponent<SkillSlot>().Skill = tempSkills[i];
         }
     }
 
