@@ -46,7 +46,7 @@ public class DataManager : MonoBehaviour
 
         currencyList.Initialize();
     }
-
+    
     public void AddCurrency(int param)
     {
         CurrencyType type = (CurrencyType)param;
